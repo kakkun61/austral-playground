@@ -1,0 +1,38 @@
+import Standard.IO (
+  TerminalCapability,
+  acquireTerminal,
+  releaseTerminal
+);
+import Standard.IO.Terminal (
+  StandardInput,
+  acquireInput,
+  releaseInput,
+  readLine
+);
+import Standard.String (
+  String,
+  getSpan,
+  length,
+  destroyString
+);
+
+module body Main is
+  function main(cap: RootCapability): ExitCode is
+    var mutCap: RootCapability := cap;
+    var terminalCap: TerminalCapability := acquireTerminal(&!mutCap);
+    var standardInput: StandardInput := acquireInput(&!terminalCap);
+
+    print("Name: ");
+    let name: String := readLine(&!standardInput);
+    print("Hello, ");
+    print(getSpan(&name, 0, length(&name) - 1));
+    printLn("!");
+
+    destroyString(name);
+    releaseInput(standardInput);
+    releaseTerminal(terminalCap);
+    surrenderRoot(mutCap);
+
+    return ExitSuccess();
+  end;
+end module body.

@@ -1,0 +1,12 @@
+import Standard.String (
+  String,
+  destroyString
+);
+
+module body Substructural is
+  instance Consumable(String) is
+    method consume(value: String): Unit is
+      return destroyString(value);
+    end;
+  end;
+end module body.

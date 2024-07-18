@@ -1,0 +1,14 @@
+import Standard.String (String);
+import Standard.Tuples (Pair);
+
+module Substructural is
+  typeclass Consumable(T: Linear) is
+    method consume(value: T): Unit;
+  end;
+
+  instance Consumable(String);
+
+  typeclass Dupable(T: Linear) is
+    method dup(value: T): Pair[T, T];
+  end;
+end module.
